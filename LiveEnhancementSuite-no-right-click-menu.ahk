@@ -647,7 +647,7 @@ if (usectrlaltsinstead = 0){
 Else{
 	Hotkey, ^!s, savenewver
 	}
-Hotkey, !e, envelopemode
+; Hotkey, !e, envelopemode
 if (addctrlshiftz = 1){
 Hotkey, ^+z, redo
 }
