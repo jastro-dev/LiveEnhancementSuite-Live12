@@ -1156,7 +1156,7 @@ Return
 ;-----------------------------------;
 
 openplugin: ;you would think consistently typing something in the ableton search bar would be easy
-loop, 2{
+loop, 1{
 Send,{ctrl down}{f}{ctrl up}
 Sendinput % queryname
 WinWaitActive, ExcludeText - ExcludeTitle, , 0.5 ; prevents the keystrokes from desynchronizing when ableton lags during the search query.
