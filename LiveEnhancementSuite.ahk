@@ -373,15 +373,15 @@ Loop, Read, %A_ScriptDir%\settings.ini
 	altgrmarker := result[2]
 	}
 	
-	if (RegExMatch(line, "middleclicktopan\s=\s") != 0){
-	result := StrSplit(line, "=", A_Space)
-	if !(result[2] = 0 or result[2] = 1){
-		msgbox % "Invalid parameter for " . Chr(34) "middleclicktopan" . Chr(34) . ". Valid parameters are: 1 and 0. The program will shut down now."
-		run, %A_ScriptDir%\settings.ini
-		exitapp
-		}
-	middleclicktopan := result[2]
-	}
+	; if (RegExMatch(line, "middleclicktopan\s=\s") != 0){
+	; result := StrSplit(line, "=", A_Space)
+	; if !(result[2] = 0 or result[2] = 1){
+	; 	msgbox % "Invalid parameter for " . Chr(34) "middleclicktopan" . Chr(34) . ". Valid parameters are: 1 and 0. The program will shut down now."
+	; 	run, %A_ScriptDir%\settings.ini
+	; 	exitapp
+	; 	}
+	; middleclicktopan := result[2]
+	; }
 	
 	if (RegExMatch(line, "scrollspeed\s=\s") != 0){
 	result := StrSplit(line, "=", A_Space)
@@ -528,7 +528,7 @@ Loop, Read, %A_ScriptDir%\settings.ini
 
 ; alright, so this section asks the user to update the settings.ini with the one included in the package if some values are missing.
 ; these are the values I deem "nescesary"
-if ((autoadd = "") or (resetbrowsertobookmark = "") or (bookmarkx = "") or (bookmarky = "") or (windowedcompensationpx = "") or (disableloop = "") or (saveasnewver = "") or (usectrlaltsinstead = "")or (usectrlaltsinstead = "") or (middleclicktopan = "") or (addctrlshiftz = "") or (0todelete = "") or (absolutereplace = "") or (smarticon = "") or (pianorollmacro = "") or (pianosearch = "") or (enabledebug = "") or (addtostartup = "")){
+if ((autoadd = "") or (resetbrowsertobookmark = "") or (bookmarkx = "") or (bookmarky = "") or (windowedcompensationpx = "") or (disableloop = "") or (saveasnewver = "") or (usectrlaltsinstead = "")or (usectrlaltsinstead = "") or (addctrlshiftz = "") or (0todelete = "") or (absolutereplace = "") or (smarticon = "") or (pianorollmacro = "") or (pianosearch = "") or (enabledebug = "") or (addtostartup = "")){
 gosub, settingsinibad
 }
 
@@ -618,17 +618,17 @@ RegDelete, HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run, Live
 SetTimer, watchforopen, 1000
 goto hotkeysmain
 
-~$MButton Up::
-Critical
-	if (activenaw = 1){
-		if (middleclicktopan = 1){
-			Send {LControl up}{LAlt up}{LButton up}
-		}
-	}
-	else {
-		sendinput {blind}{mbutton up}
-	}
-Return
+; ~$MButton Up::
+; Critical
+; 	if (activenaw = 1){
+; 		if (middleclicktopan = 1){
+; 			Send {LControl up}{LAlt up}{LButton up}
+; 		}
+; 	}
+; 	else {
+; 		sendinput {blind}{mbutton up}
+; 	}
+; Return
 
 hotkeysmain:
 #IfWinActive ahk_exe Ableton Live.+
@@ -896,14 +896,14 @@ Return
 ; I moved $Mbutton up:: hotkey to the top of the script to be set before the global #ifwinactive marker
 ; this way you will be able to release the mbutton hotkey even when ableton live is not in focus
 ; I think this is the cause of the hotkey getting stuck bug (requires some testing)
-$MButton::
-Critical
-	if (middleclicktopan = 1){
-		Send {LControl down}{LAlt down}{LButton down}
-		keywait, Mbutton
-		Send {LControl up}{LAlt up}{LButton up}
-	}
-Return
+; $MButton::
+; Critical
+; 	if (middleclicktopan = 1){
+; 		Send {LControl down}{LAlt down}{LButton down}
+; 		keywait, Mbutton
+; 		Send {LControl up}{LAlt up}{LButton up}
+; 	}
+; Return
 
 $WheelDown::
 	MouseGetPos,,,guideUnderCursor
@@ -1156,7 +1156,7 @@ Return
 ;-----------------------------------;
 
 openplugin: ;you would think consistently typing something in the ableton search bar would be easy
-loop, 1{
+loop, 2{
 Send,{ctrl down}{f}{ctrl up}
 Sendinput % queryname
 WinWaitActive, ExcludeText - ExcludeTitle, , 0.5 ; prevents the keystrokes from desynchronizing when ableton lags during the search query.
@@ -1534,7 +1534,7 @@ send {delete}
 return
 
 redo:
-send {ctrl down}{y down}{ctrl up}{y up}
+Send, ^y
 if(vstshortcuts := 1){
 gosub, VSTredo
 }
