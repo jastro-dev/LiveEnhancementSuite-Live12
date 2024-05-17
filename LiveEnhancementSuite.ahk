@@ -1534,9 +1534,11 @@ send {delete}
 return
 
 redo:
-Send, ^y
 if(vstshortcuts := 1){
 gosub, VSTredo
+}
+else{
+	sendinput {ctrl down}{y}{ctrl up}
 }
 Return
 
